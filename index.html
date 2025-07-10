@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Memorizar Texto</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 10px;
+    }
+    #resultado {
+      margin-top: 20px;
+      font-size: 1.2em;
+      line-height: 1.5;
+    }
+    .hidden-word {
+      background-color: #ccc;
+      color: #ccc;
+      border-bottom: 1px solid #888;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🧠 Ayuda para Memorizar</h2>
+  <textarea id="texto" placeholder="Pegá el texto que querés memorizar..."></textarea><br>
+
+  <button onclick="ocultarPalabras()">Ocultar palabras</button>
+  <button onclick="mostrarOriginal()">Mostrar todo</button>
+  <button onclick="reiniciar()">Reiniciar</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    let original = "";
+
+    function ocultarPalabras() {
+      const texto = document.getElementById("texto").value.trim();
+      if (!texto) return;
+
+      original = texto;
+      const palabras = texto.split(/\s+/);
+      const resultadoDiv = document.getElementById("resultado");
+
+      const ocultadas = palabras.map(palabra => {
+        if (Math.random() < 0.4 && palabra.length > 2) {
+          return `<span class="hidden-word" onclick="this.style.color='black'">${palabra}</span>`;
+        } else {
+          return palabra;
+        }
+      });
+
+      resultadoDiv.innerHTML = ocultadas.join(" ");
+    }
+
+    function mostrarOriginal() {
+      document.getElementById("resultado").innerText = original;
+    }
+
+    function reiniciar() {
+      document.getElementById("resultado").innerHTML = "";
+      document.getElementById("texto").value = "";
+      original = "";
+    }
+  </script>
+
+</body>
+</html>
