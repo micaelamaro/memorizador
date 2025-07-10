@@ -1,0 +1,1 @@
+para memorizar tus textos :)
